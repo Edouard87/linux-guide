@@ -1,12 +1,11 @@
 # Hardware Selection
 
-This section covers the materials needed throughout this guide. A general overview of the materials is provided in [Required Materials](#required-materials). Each subsequent section then provides additional description for that component.
+This section covers the materials needed throughout this guide. Each subsequent section provides additional description for that component.
 
 ---
 
 ## Required Materials
 
-- [Required Materials](#required-materials)
 - [Host Device](#host-device)
 - [Working Device](#working-device)
 - [USB Stick](#usb-stick)

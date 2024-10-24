@@ -28,6 +28,11 @@ Finally, I close with a note to the reader. It is very likely that you will run 
 
 ## Table of Contents
 
-1. [Hardware Selection](./hardware-selection.md)
+### Chapter 1: Basic Setup
+1. [Hardware Selection](./basic-setup/hardware-selection.md)
 2. [Flashing USB](./flashing-usb.md)
 3. [Installation](./installation.md)
+
+### Chapter 2: Application Configuration
+
+### Chapter 3: Usage
