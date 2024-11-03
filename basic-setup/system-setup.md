@@ -40,10 +40,12 @@ We will need to use software to flash the ISO. Since I'm using Windows, I like t
 
 > [!WARNING]
 > Installing Linux on your host device will override all data currently on it. If you are using Windows, this also might include your Windows license key[^2].
+>
+> ## Boot into USB
 
 Take your USB and plug it into your host computer. Then, you will need to figure out what your host computer's BIOS key is. The BIOS key is a special key on your keyboard that takes you to your motherboard's Basic Input Output Setup page before your computer boots.
 
-This may take some trial and error. If it makes you feel better, I always forget what my BIOS key is. A few keys to try are F2, F10, DEL.
+This may take some trial and error. If it makes you feel better, I always forget what my BIOS key is. A few keys to try are F2, F10, DEL. My ASUS laptop's BIOS key is F12.
 
 Since the BIOS is different from one motherboard manufacturer to the next, I'll do my best to generally describe what the buttons look like. The names may be slightly different for your configuration. You will need to tell your BIOS to boot into the USB you plugged in.
 
@@ -56,7 +58,7 @@ Once you boot, wait for the installer to copy the filesystem to RAM. Once it's d
 
 <!-- TODO: Expand this section -->
 
-## Connecting to Wireless Internet
+## Connect to Wireless Internet
 
 > [!NOTE]
 > The procecure to connect to the internet depends heavily on what type of network you have. Assuming you have a "regular" home network, the general steps above should work just fine. If you get a `cannot connect` error, you may be on a network with more strict security, like a University network, for instance. In my experience, if you struggle with connecting to a network significantly, it may be worth using a wired network connection instead. Once you have installed the Kernel onto the host computer, you can then connect to your more complicated wireless setup.
@@ -91,7 +93,7 @@ You can also ping the Google DHCP server just to be sure:
 $ ping 8.8.8.8
 ```
 
-### Configure System Clock
+## Configure System Clock
 
 Synchronize the system clock. To do this, you need to be connected to the internet so the application can ask its timeservers what the actual time it. It is considered good practice to do this.
 
@@ -99,7 +101,7 @@ Synchronize the system clock. To do this, you need to be connected to the intern
 timedatectl
 ```
 
-## Partitioning the Host Drive
+## Partition the Host Drive
 
 You will need to partition the host drive to install Arch onto it. There is an entire field of software development and computer science dedicated to this one thing. Here, I'll provide a general overview of how partitioning works. I'll also be configuring a very basic setup. For further details, I invite the reader to check the drive-partitioning apendix.
 
@@ -446,7 +448,7 @@ The network is automatically stored in our known networks. We can get a full lis
 
 Network configurations are stored in `/var/lib/iwd`.
 
-## Configure `NetworkManager`
+### Configure `NetworkManager`
 
 <!-- TODO: Expand this section -->
 
@@ -458,16 +460,23 @@ $ sudo pacman -S NetworkManager nm-connection-editor
 
 Ensure `iwd` is turned off and set to disabled:
 
+> [!DANGER]
+> Ensure that there are no other processes trying to manage networking. If there are, they will fight with each other.
+
 ```
 $ sudo systemctl stop iwd
 $ sudo systemctl disable iwd
 ```
 
-Ensure that there are no other processes trying to manage networking. If there are, they will fight with each other.
-
 ```
 $ systemctl --state=active
 ```
+
+You can now configure your network using the GUI by pressing `$mod + D` and typing `nm-connection-editor`. Under `Wi-Fi Security`, you can configure any advanced network security you need to connect to the network.
+
+If you are using a "normal" network, that is, a network with just a password, click on `WPA/WPA2/WPA3 Personal` in the `security` dropdown menu and input your network's password in the `password` field. After you click on save, wait a few moments, and you should see that you have successfully connected to the network.
+
+It is also possible to edit the files manually. `NetworkManager` stores network configuration files in `/etc/NetworkManager/system-connections/name.nmconnection`, where `name` is the name of the configuration. The name of a network configuration file does not need to be the same as its SSID. 
 
 <!-- TODO: Clean up references -->
 
