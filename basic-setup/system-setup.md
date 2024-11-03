@@ -402,12 +402,9 @@ $ grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Configure Network Connection
 
-> [!WARNING]
-> I have had difficulty working with `iwd` and University networks in the past. `NetworkManager` makes it a lot easier to deal with network configuration files.
+When it comes to connecting to wireless internet on Linux, things get very confusing. You basically have two choices, `Network Manager` and `iwctl`. I have had difficulty working with `iwd` and University networks in the past. `NetworkManager` makes it a lot easier to deal with network configuration files.
 
 ### Configure `iwd`
-
-When it comes to connecting to wireless internet on Linux, things get very confusing. You basically have two choices, `Network Manager` and `iwctl`.
 
 This section is heavily inspired from the ArchWiki page on `iwd`: <https://wiki.archlinux.org/title/Iwd>.
 
@@ -450,6 +447,8 @@ Network configurations are stored in `/var/lib/iwd`.
 
 ### Configure `NetworkManager`
 
+Alternatively, it is also possible to use `NetworkManager`. As I mentionned above, this is my preferred method of managing network connections on Linux. 
+
 <!-- TODO: Expand this section -->
 
 NetworkManager is another tool for configuring networks which I prefer because it also has a GUI so it does not feel like I am in 1981. Assuming you are already connected to the internet somehow, install it with:
@@ -477,6 +476,26 @@ You can now configure your network using the GUI by pressing `$mod + D` and typi
 If you are using a "normal" network, that is, a network with just a password, click on `WPA/WPA2/WPA3 Personal` in the `security` dropdown menu and input your network's password in the `password` field. After you click on save, wait a few moments, and you should see that you have successfully connected to the network.
 
 It is also possible to edit the files manually. `NetworkManager` stores network configuration files in `/etc/NetworkManager/system-connections/name.nmconnection`, where `name` is the name of the configuration. The name of a network configuration file does not need to be the same as its SSID. 
+
+It is also possible to use `NetworkManager` through the command line using `nmcli`. Here is a brief overview of how to use it.
+
+Show your network devices with:
+
+```
+> nmcli device show
+```
+
+Scan for networks with:
+
+```
+> nmcli device wifi rescan
+```
+
+Show available networks with:
+
+```
+> nmcli device wifi list 
+```
 
 <!-- TODO: Clean up references -->
 
